@@ -1,6 +1,10 @@
 version: 0.2
 
 phases:
+  install:
+    commands:
+      - apk add --no-cache py-pip
+      - pip install docker-compose
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
