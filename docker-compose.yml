@@ -1,7 +1,11 @@
 version: '3.3'
 
 services:
-  webapp:
+  app:
     build:
-      context: ./spring-boot-sample
+      context: .
+    ports:
+      - 8081:8081
+    volumes:
+      - .:/app
     image: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}
