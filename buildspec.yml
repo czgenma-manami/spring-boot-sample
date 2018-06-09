@@ -8,8 +8,13 @@ phases:
       - pip install docker-compose
   build:
     commands:
+      - gradle build -x test
       - echo Building the Docker image ...
       - docker-compose build
   post_build:
     commands:
       - docker-compose push
+
+artifacts:
+  files:
+    - ./build/libs/spring-boot-sample.jar
