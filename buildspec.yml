@@ -6,9 +6,15 @@ phases:
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
       - pip install docker-compose
+      - apt-get update -y
+      - apt-get install -y software-properties-common
+      - add-apt-repository ppa:openjdk-r/ppa
+      - apt-get update -y
+      - apt-get install -y openjdk-8-jdk
+      - apt-get install -y gradle
   build:
     commands:
-      - gradle build -x test
+      - gradle build
       - echo Building the Docker image ...
       - docker-compose build
   post_build:
