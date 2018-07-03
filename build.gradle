@@ -7,6 +7,7 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath "se.transmode.gradle:gradle-docker:1.2"
 	}
 }
 
@@ -15,11 +16,10 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'docker'
 
 group = 'me.gemma'
 sourceCompatibility = 1.8
-
-jar.baseName = 'spring-boot-sample'
 
 repositories {
 	mavenCentral()
@@ -29,4 +29,20 @@ repositories {
 dependencies {
 	compile("org.springframework.boot:spring-boot-starter-web")
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+jar {
+	baseName = 'spring-boot-sample'
+	archiveName = "${baseName}.jar"
+}
+
+task buildDocker(type: Docker, dependsOn: build) {
+	applicationName = jar.baseName
+	dockerfile = file('Dockerfile')
+	doFirst {
+		copy {
+			from jar
+			into "${stageDir}/target"
+		}
+	}
 }

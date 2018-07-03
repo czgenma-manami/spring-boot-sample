@@ -12,9 +12,10 @@ phases:
       - apt-get update -y
       - apt-get install -y openjdk-8-jdk
       - apt-get install -y gradle
+      - gradle -v
   build:
     commands:
-      - gradle build
+      - gradle build buildDocker
       - echo Building the Docker image ...
       - docker-compose build
   post_build:
