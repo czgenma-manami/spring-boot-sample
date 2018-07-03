@@ -15,7 +15,7 @@ phases:
       - gradle -v
   build:
     commands:
-      - gradle build buildDocker
+      - gradle build
       - echo Building the Docker image ...
       - docker-compose build
   post_build:
