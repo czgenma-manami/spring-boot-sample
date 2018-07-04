@@ -20,3 +20,8 @@ RUN apt-get update && apt-get upgrade -y gradle git maven ant
 RUN echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
 RUN echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
 RUN apt-get install -y oracle-java8-installer
+
+RUN add-apt-repository ppa:git-core/ppa -y
+RUN apt-get update -y
+RUN apt-get install -y build-essential python-pip git
+RUN pip install docker-compose
