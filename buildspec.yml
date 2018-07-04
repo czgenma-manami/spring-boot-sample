@@ -1,9 +1,5 @@
 version: 0.2
 
-env:
-  variables:
-    JAVA_HOME: "/usr/lib/jvm/java-8-oracle"
-
 phases:
   install:
     comamnd:
@@ -17,6 +13,7 @@ phases:
 
   pre_build:
     commands:
+      - ./gradlew -v
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
   build:
